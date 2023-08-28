@@ -17,12 +17,30 @@
     <header></header>
     <!-- main section start from here  -->
     <main>
+      <!-- search section  -->
+      <section class="w-11/12 mx-auto">
+        <input
+          id="search"
+          type="text"
+          placeholder="Search Phone Here"
+          class="input input-bordered input-primary w-full max-w-xs mx-auto"
+        />
+        <button onclick="searchHandle()" class="btn btn-primary mx-auto">
+          Search
+        </button>
+      </section>
       <!-- phone card section  -->
-      <section>
+      <section class="mx-auto">
+        <div id="loading" class="text-center mt-60 hidden">
+          <span class="loading loading-infinity loading-lg"></span>
+        </div>
         <div
           id="phone-container"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6"
         ></div>
+        <div id="show-all" class="hidden text-center">
+          <button class="btn btn-secondary mx-auto">Show All</button>
+        </div>
       </section>
     </main>
     <!-- javascript link  -->
