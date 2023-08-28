@@ -1,8 +1,7 @@
-const phoneLoad = async (search,isShow) => {
+const phoneLoad = async (search='iphone',isShow) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${search}`);
     const data = await res.json();
     const phones = data.data
-    console.log(phones);
     displayPhone(phones,isShow)
 }
 phoneLoad()
@@ -28,7 +27,6 @@ const displayPhone = (phones,isShow) => {
     }
     
     phones.forEach(phone => {
-        console.log(phone)
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card card-compact bg-base-100 shadow-xl"`;
         phoneCard.innerHTML = `
@@ -55,7 +53,6 @@ const searchHandle = (isShow) => {
     const searchField = document.getElementById('search');
     searchField.textContent = '';
     const searchValue = searchField.value;
-    console.log(searchValue);
     phoneLoad(searchValue,isShow);
 }
 
@@ -71,4 +68,33 @@ const loading = (isLoading) => {
 
 const showAllHandler = ()=>{
     searchHandle(true);
+}
+
+const showDetails =async (id)=>{
+    const res =await fetch (`https://openapi.programming-hero.com/api/phone/${id}`);
+    const data = await res.json();
+    phoneDetails(data.data);
+}
+const phoneDetails = (phone)=>{
+    my_modal_1.showModal();
+    const modalCon = document.getElementById('modal-box-details');
+    const phoneCard = document.createElement('div');
+    modalCon.classList = `card card-compact bg-base-100 shadow-xl`;
+    modalCon.innerHTML = `
+        <figure>
+              <img
+                src="${phone.image}"
+                alt="Shoes"
+              />
+            </figure>
+            <div class="card-body justify-center">
+              <h2 class="card-title justify-center ">${phone.name}</h2>
+              <p class="text-center">If a dog chews shoes whose shoes does he choose?</p>
+              <div class="card-actions justify-center">
+                <button onclick="showDetails('${phone.slug}')" class="btn btn-primary">Buy Now</button>
+              </div>
+            </div>
+        `
+        modalCon.appendChild(phoneCard)
+    
 }
